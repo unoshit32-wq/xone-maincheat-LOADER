@@ -1,0 +1,103 @@
+-- ✅ 2KDEMONZ KEY SYSTEM (draggable + image background)
+-- LocalScript, lagay sa StarterPlayerScripts or execute via executor
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+-- CONFIG
+local CORRECT_KEY = "XONE-MAIN-CHEAT-V2" -- 🔑 Tamang key
+local SCRIPT_URL = "https://raw.githubusercontent.com/unoshit32-wq/xone-maincheat-V3/refs/heads/main/V3%20BY%20UNO%20ASIAN"
+local IMAGE_ID = "rbxassetid://125099436017901" -- ilagay dito yung image ID
+
+-- Remove old GUI kung meron
+if PlayerGui:FindFirstChild("KeySystemGui") then
+    PlayerGui.KeySystemGui:Destroy()
+end
+
+-- ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "KeySystemGui"
+ScreenGui.Parent = PlayerGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.ResetOnSpawn = false
+
+-- Main Frame
+local Frame = Instance.new("Frame")
+Frame.Parent = ScreenGui
+Frame.Size = UDim2.new(0, 329, 0, 180)
+Frame.Position = UDim2.new(0.5, -160, 0.5, -90)
+Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Frame.Active = true
+Frame.Draggable = true
+
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0, 8)
+Corner.Parent = Frame
+
+-- Background Image
+local BG = Instance.new("ImageLabel")
+BG.Parent = Frame
+BG.Size = UDim2.new(1, 0, 1, 0)
+BG.BackgroundTransparency = 1
+BG.Image = IMAGE_ID
+BG.ImageTransparency = 0.1
+
+-- Title
+local Title = Instance.new("TextLabel")
+Title.Parent = Frame
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1, 0, 0, 35)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "XONE MAIN CHEAT"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextScaled = true
+Title.ZIndex = 2
+
+-- TextBox
+local TextBox = Instance.new("TextBox")
+TextBox.Parent = Frame
+TextBox.PlaceholderText = "ENTER KEY"
+TextBox.Size = UDim2.new(0.9, 0, 0, 40)
+TextBox.Position = UDim2.new(0.05, 0, 0.45, 0)
+TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.Font = Enum.Font.Gotham
+TextBox.TextSize = 18
+TextBox.ClearTextOnFocus = false
+TextBox.ZIndex = 2
+
+local BoxCorner = Instance.new("UICorner")
+BoxCorner.CornerRadius = UDim.new(0, 6)
+BoxCorner.Parent = TextBox
+
+-- Submit Button
+local Button = Instance.new("TextButton")
+Button.Parent = Frame
+Button.Text = "SUBMIT"
+Button.Size = UDim2.new(0.9, 0, 0, 40)
+Button.Position = UDim2.new(0.05, 0, 0.75, 0)
+Button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+Button.Font = Enum.Font.GothamBold
+Button.TextSize = 18
+Button.ZIndex = 2
+
+local BtnCorner = Instance.new("UICorner")
+BtnCorner.CornerRadius = UDim.new(0, 6)
+BtnCorner.Parent = Button
+
+-- Functionality
+Button.MouseButton1Click:Connect(function()
+    if TextBox.Text == CORRECT_KEY then
+        Button.Text = "✅KEY IS CORRECT✅"
+        task.wait(0.5)
+        ScreenGui:Destroy()
+        -- load script kapag tama ang key
+        loadstring(game:HttpGet(SCRIPT_URL))()
+    else
+        Button.Text = "❌ WRONG KEY"
+        task.wait(1.1)
+        Button.Text = "SUBMIT"
+    end
+end)
